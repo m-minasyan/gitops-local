@@ -12,6 +12,8 @@ spec:
     chart: traefik
     helm:
       values: >-
+        deployment:
+          replicas: 2
         globalArguments:
           - "--global.checknewversion"
         additionalArguments:
