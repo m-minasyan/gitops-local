@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: uptime-kuma
+spec:
+  destination:
+    namespace: uptime-kuma
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: uptime-kuma
+    repoURL: 'https://github.com/m-minasyan/helm.git'
+    targetRevision: main
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bot
+spec:
+  destination:
+    namespace: kuberstar
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: bot
+    repoURL: 'https://github.com/m-minasyan/helm.git'
+    targetRevision: main
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

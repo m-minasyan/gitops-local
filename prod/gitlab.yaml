@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitlab
+spec:
+  destination:
+    namespace: gitlab
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: 'https://charts.gitlab.io/'
+    targetRevision: 5.10.0
+    chart: gitlab
+    helm:
+      parameters:
+        - name: certmanager.install
+          value: 'false'
+        - name: certmanager.installCRDs
+          value: 'false'
+        - name: certmanager.rbac.create
+          value: 'false'
+        - name: certmanager-issuer.email
+          value: 'next@gmail.com'
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
