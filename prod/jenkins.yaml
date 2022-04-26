@@ -8,7 +8,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: jenkins
-    repoURL: 'https://github.com/m-minasyan/helm.git'
+    repoURL: 'https://github.com/m-minasyan/helm-local.git'
     targetRevision: main
   project: default
   syncPolicy:

@@ -8,7 +8,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: rancher
-    repoURL: 'https://github.com/m-minasyan/helm.git'
+    repoURL: 'https://github.com/m-minasyan/helm-local.git'
     targetRevision: main
     helm:
       parameters:
@@ -38,7 +38,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: cert-manager
-    repoURL: 'https://github.com/m-minasyan/helm.git'
+    repoURL: 'https://github.com/m-minasyan/helm-local.git'
     targetRevision: main
   project: default
   syncPolicy:
@@ -58,7 +58,7 @@ spec:
 #    server: 'https://kubernetes.default.svc'
 #  source:
 #    path: cert-manager
-#    repoURL: 'https://github.com/m-minasyan/helm.git'
+#    repoURL: 'https://github.com/m-minasyan/helm-local.git'
 #    targetRevision: main
 #  project: default
 #  syncPolicy:
