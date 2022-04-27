@@ -1,23 +1,33 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: traefik
-spec:
-  destination:
-    namespace: traefik
-    server: 'https://kubernetes.default.svc'
-  source:
-    repoURL: 'https://helm.traefik.io/traefik'
-    targetRevision: 10.15.0
-    chart: traefik
-    helm:
-      values: >-
-        deployment:
-          replicas: 2
-  project: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+  @@ -1,56 +1,23 @@
+  apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    name: traefik
+  spec:
+    destination:
+      namespace: traefik
+      server: 'https://kubernetes.default.svc'
+    source:
+      repoURL: 'https://helm.traefik.io/traefik'
+      targetRevision: 10.15.0
+      chart: traefik
+      helm:
+        values: >-
+          deployment:
+            replicas: 2
+          globalArguments:
+            - "--global.checknewversion"
+          additionalArguments:
+            - "--entrypoints.websecure.http.tls.certresolver=cloudflare"
+            - "--entrypoints.websecure.http.tls.domains[0].main=kuberstar.com"
+            - "--entrypoints.websecure.http.tls.domains[0].sans=*.kuberstar.com"
+          ports:
+            web:
+              redirectTo: websecure
+    project: default
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true
