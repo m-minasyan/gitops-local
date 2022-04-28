@@ -16,13 +16,6 @@
             replicas: 2
           globalArguments:
             - "--global.checknewversion"
-          additionalArguments:
-            - "--entrypoints.websecure.http.tls.certresolver=cloudflare"
-            - "--entrypoints.websecure.http.tls.domains[0].main=kuberstar.com"
-            - "--entrypoints.websecure.http.tls.domains[0].sans=*.kuberstar.com"
-          ports:
-            web:
-              redirectTo: websecure
     project: default
     syncPolicy:
       automated:
