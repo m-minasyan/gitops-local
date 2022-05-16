@@ -14,8 +14,6 @@
         values: >-
           deployment:
             replicas: 2
-          globalArguments:
-            - "--global.checknewversion"
     project: default
     syncPolicy:
       automated:
