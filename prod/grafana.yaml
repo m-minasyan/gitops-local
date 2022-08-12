@@ -1,0 +1,61 @@
+# nonk8s
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+spec:
+  destination:
+    namespace: monitoring
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: 'https://grafana.github.io/helm-charts'
+    targetRevision: 6.32.12
+    chart: grafana
+    helm:
+      parameters:
+        - name: admin.existingSecret
+          value: grafana-secret
+      values: |
+        datasources:
+          datasources.yaml:
+            apiVersion: 1
+            datasources:
+            - name: prometheus
+              type: prometheus
+              access: proxy
+              orgId: 1
+              url: http://prometheus-server:80/
+            - name: loki
+              type: loki
+              access: proxy
+              orgId: 1
+              url: http://loki-gateway:80/
+        dashboardProviders:
+          dashboardproviders.yaml:
+            apiVersion: 1
+            providers:
+            - name: 'default'
+              orgId: 1
+              folder: ''
+              type: file
+              disableDeletion: true
+              options:
+                path: /var/lib/grafana/dashboards/default
+        dashboards:
+          default:
+            Node Exporter Full with Node Name:
+              gnetId: 10242
+              datasource: prometheus
+            K3S cluster monitoring:
+              gnetId: 15282
+              datasource: prometheus
+            Kubernetes Pods:
+              gnetId: 15450
+              datasource: prometheus
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
