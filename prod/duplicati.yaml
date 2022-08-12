@@ -8,7 +8,7 @@ spec:
     namespace: duplicati
     server: 'https://kubernetes.default.svc'
   source:
-    path: duplicati
+    path: duplicati-prod
     repoURL: 'https://github.com/m-minasyan/helm-local.git'
     targetRevision: main
   project: default

@@ -8,7 +8,7 @@ spec:
     namespace: kuberstar
     server: 'https://kubernetes.default.svc'
   source:
-    path: gitops
+    path: gitops-prod
     repoURL: 'https://github.com/m-minasyan/helm-local.git'
     targetRevision: main
   project: default
